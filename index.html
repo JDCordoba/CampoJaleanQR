@@ -2,8 +2,10 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campo Jalean - WhatsApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Campo Jalean - Registro</title>
+    <!-- Fuente moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,8 +14,8 @@
         }
         
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9; 
+            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -23,59 +25,56 @@
         }
         
         .container {
-            background: rgba(255, 255, 255, 0.95);
+            background: white;
             border-radius: 20px;
-            padding: 40px;
-            max-width: 500px;
+            padding: 40px 30px;
+            max-width: 450px;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
             text-align: center;
         }
         
+        /* Ajustes del logo de Campo Jalean */
         .logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            background: #25D366;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            color: white;
+            max-width: 180px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            image-rendering: -webkit-optimize-contrast; 
         }
-        
+
         h1 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 28px;
+            color: #1a2b4c;
+            margin-bottom: 5px;
+            font-size: 22px;
         }
         
         .subtitle {
             color: #666;
-            margin-bottom: 30px;
-            font-size: 16px;
+            margin-bottom: 25px;
+            font-size: 15px;
         }
         
+        /* Animación de carga */
         .lds-ring {
             display: inline-block;
             position: relative;
-            width: 80px;
-            height: 80px;
-            margin: 20px auto;
+            width: 60px;
+            height: 60px;
+            margin: 15px auto;
         }
         
         .lds-ring div {
             box-sizing: border-box;
             display: block;
             position: absolute;
-            width: 64px;
-            height: 64px;
-            margin: 8px;
-            border: 8px solid #25D366;
+            width: 48px;
+            height: 48px;
+            margin: 6px;
+            border: 5px solid #1982c4; /* Color celeste del logo */
             border-radius: 50%;
             animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-            border-color: #25D366 transparent transparent transparent;
+            border-color: #1982c4 transparent transparent transparent;
         }
         
         .lds-ring div:nth-child(1) { animation-delay: -0.45s; }
@@ -88,17 +87,18 @@
         }
         
         .status {
-            margin-top: 20px;
+            margin-top: 15px;
             color: #666;
             font-size: 14px;
         }
         
+        /* Estilos de mensajes de éxito/error */
         .error {
             color: #e74c3c;
             background: #fde8e8;
             padding: 15px;
             border-radius: 10px;
-            margin-top: 20px;
+            margin-top: 15px;
         }
         
         .success {
@@ -106,51 +106,56 @@
             background: #e8f8ed;
             padding: 15px;
             border-radius: 10px;
-            margin-top: 20px;
+            margin-top: 15px;
         }
         
         .info {
-            color: #3498db;
+            color: #1982c4;
             background: #e8f4fd;
             padding: 10px;
             border-radius: 10px;
-            margin-top: 15px;
+            margin-top: 10px;
             font-size: 13px;
         }
         
-        .footer {
-            margin-top: 30px;
-            color: rgba(255,255,255,0.8);
-            font-size: 14px;
-        }
-        
         .btn-reintentar {
-            padding: 10px 20px;
-            background: #667eea;
+            padding: 10px 25px;
+            background: #1982c4;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            margin-top: 15px;
             transition: background 0.3s;
         }
         
         .btn-reintentar:hover {
-            background: #5a67d8;
+            background: #136a9e;
+        }
+        
+        .footer {
+            margin-top: 25px;
+            color: #999;
+            font-size: 13px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="logo">📱</div>
-        <h1>QR Campo Jalean</h1>
-        <p class="subtitle">Conectando con WhatsApp</p>
+        <!-- LOGO DE CAMPO JALEAN -->
+        <img src="logo.png" alt="Campo Jalean" class="logo">
+        
+        <h1>¡Bienvenido!</h1>
+        <p class="subtitle">Registrando tu ingreso...</p>
         
         <div id="loader">
             <div class="lds-ring">
                 <div></div><div></div><div></div><div></div>
             </div>
-            <p class="status">⏳ Procesando tu solicitud...</p>
+            <p class="status">⏳ Conectando con el sistema...</p>
         </div>
         
         <div id="info-adicional" style="display: none;" class="info">
@@ -161,11 +166,11 @@
     </div>
     
     <div class="footer">
-        © 2026 Campo Jalean · Todos los derechos reservados
+        © 2026 Campo Jalean
     </div>
     
     <script>
-        // CONFIGURACIÓN - ¡ACTUALIZA CON TU URL DE APPS SCRIPT!
+        // ✅ ACTUALIZA ESTO CON TU URL DE APPS SCRIPT
         const AS_URL_BASE = "https://script.google.com/macros/s/AKfycbwT_9C8hbZHmTFgkhIwnH8uQ_krOzKdOq3dFyArbXybXBje2bZQta7PA5m7jCL_c-9s/exec";
         
         // Función para obtener la IP del usuario
@@ -180,8 +185,8 @@
             }
         }
         
-        // Función principal mejorada
-        async function redirigir() {
+        // Función principal
+        async function procesarRegistro() {
             const loader = document.getElementById('loader');
             const resultado = document.getElementById('resultado');
             const infoAdicional = document.getElementById('info-adicional');
@@ -199,11 +204,11 @@
                 // Obtener IP del usuario
                 const ip = await getClientIP();
                 
-                // Construir URL con parámetros adicionales
+                // Construir URL con parámetros
                 const userAgent = encodeURIComponent(navigator.userAgent);
                 const urlCompleta = `${AS_URL_BASE}?k=${encodeURIComponent(k)}&ip=${ip}&ua=${userAgent}`;
                 
-                // Llamar a Apps Script con más datos
+                // Llamar a Apps Script
                 const response = await fetch(urlCompleta);
                 
                 if (!response.ok) {
@@ -217,13 +222,13 @@
                     // Mostrar mensaje de éxito
                     loader.innerHTML = `
                         <div class="success">✅ ¡Escaneo registrado exitosamente!</div>
-                        <p class="status" style="margin-top:10px;">Redirigiendo a WhatsApp en 2 segundos...</p>
+                        <p class="status" style="margin-top:10px;">Redirigiendo al destino en 2 segundos...</p>
                     `;
                     
                     // Mostrar información adicional
                     infoAdicional.style.display = 'block';
                     infoAdicional.innerHTML = `
-                        📊 Registro #${new Date().getTime()} completado<br>
+                        📊 Registro completado<br>
                         🔑 QR: ${k}
                     `;
                     
@@ -255,18 +260,9 @@
             `;
         }
         
-        // Iniciar la redirección
-        document.addEventListener('DOMContentLoaded', redirigir);
+        // Iniciar el proceso cuando la página cargue
+        document.addEventListener('DOMContentLoaded', procesarRegistro);
     </script>
-
-    <div class="contenedor">
-        <!-- EL LOGO -->
-        <img src="logo.png" alt="Campo Jalean" class="logo">
-        
-        <h1>¡Bienvenido!</h1>
-        <p>Presioná el botón para registrar tu ingreso.</p>
-        
-    </div>
     
 </body>
 </html>
