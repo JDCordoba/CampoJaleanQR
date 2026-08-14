@@ -2,75 +2,77 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <!-- Esto es CLAVE para que calce perfecto en celulares -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Campo Jalean</title>
     
-    <!-- Fuente Poppins para un look moderno -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Reset básico */
+        /* Reset absoluto para que no sobre nada */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: 'Poppins', sans-serif;
-            /* Fondo con degradado elegante (azul oscuro corporativo a gris suave) */
             background: linear-gradient(145deg, #1a2b4c 0%, #3a507a 100%);
-            min-height: 100vh;
+            min-height: 100vh; /* Ocupa el 100% de la altura de la pantalla */
             display: flex;
             justify-content: center;
             align-items: center;
             color: #fff;
+            /* Esto evita scrolls innecesarios */
+            overflow: hidden; 
         }
         
-        /* Tarjeta flotante central (Glassmorphism) */
+        /* Tarjeta central - AHORA CALZA PERFECTO EN EL CELULAR */
         .contenedor {
             background: rgba(255, 255, 255, 0.95);
-            padding: 50px 40px;
+            padding: 40px 30px;
             border-radius: 30px;
-            max-width: 420px;
+            /* ANCHO: Ocupa el 90% de la pantalla del celular, hasta un tope de 400px en PC */
             width: 90%;
+            max-width: 400px; 
             text-align: center;
             box-shadow: 0 25px 50px rgba(0,0,0,0.3);
             animation: aparecer 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
-            overflow: hidden;
         }
 
-        /* Efecto de entrada suave */
         @keyframes aparecer {
-            0% { transform: scale(0.8); opacity: 0; }
+            0% { transform: scale(0.9); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
 
         /* Ajuste del logo */
         .logo {
-            max-width: 180px;
+            max-width: 160px;
             width: 100%;
             height: auto;
-            margin-bottom: 20px;
+            margin: 0 auto 20px auto; /* Centrado perfecto */
+            display: block;
             image-rendering: auto;
         }
 
         h1 {
             color: #1a2b4c;
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         
         p {
             color: #555;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 400;
             margin-bottom: 25px;
+            padding: 0 10px; /* Para que el texto no toque los bordes en pantallas muy chicas */
         }
 
-        /* Indicador de carga elegante */
+        /* Indicador de carga */
         .loader {
             display: inline-block;
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             border: 4px solid #e0e7ff;
             border-top: 4px solid #1a2b4c;
             border-radius: 50%;
@@ -85,28 +87,31 @@
 
         .texto-carga {
             color: #888;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 400;
         }
 
-        /* Texto pequeño de pie de página */
+        /* Texto pequeño de pie de página - AHORA BIEN UBICADO */
         .footer {
-            margin-top: 30px;
-            font-size: 12px;
-            color: rgba(255,255,255,0.5);
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 0.5px;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
 
     <div class="contenedor">
-        <!-- Logo de la empresa -->
         <img src="logo.png" alt="Campo Jalean" class="logo">
         
         <h1>Bienvenido</h1>
         <p>Estamos preparando tu acceso...</p>
 
-        <!-- Indicador visual de que está funcionando -->
         <div class="loader"></div>
         <div class="texto-carga">Conectando con WhatsApp</div>
     </div>
@@ -117,13 +122,13 @@
 
     <script>
         // ==========================================
-        // CONFIGURACIÓN DEL SISTEMA
+        // CONFIGURACIÓN
         // ==========================================
         
-        // 🔴 REEMPLAZA ESTO CON EL LINK DE TU APPS SCRIPT
+        // 🔴 TU LINK DE APPS SCRIPT
         const URL_APPS_SCRIPT = "https://script.google.com/macros/s/TU_ID_DE_SCRIPT_AQUI/exec";
         
-        // 🔴 REEMPLAZA ESTO CON EL LINK DE WHATSAPP AL QUE QUIERES QUE LLEGUE
+        // 🔴 TU LINK DE WHATSAPP
         const URL_DESTINO_FINAL = "https://wa.link/d81gs7";
 
         // ==========================================
@@ -142,34 +147,28 @@
 
         async function ejecutarRegistroYRedirigir() {
             try {
-                // 1. Obtener la clave del QR (si viene en la URL, ej: ?k=1)
                 const params = new URLSearchParams(window.location.search);
-                const claveQR = params.get('k') || '1'; // Si no tiene, usa 1 por defecto
-
-                // 2. Obtener datos del usuario (IP y Navegador)
+                const claveQR = params.get('k') || '1';
                 const ip = await obtenerIP();
                 const userAgent = encodeURIComponent(navigator.userAgent);
 
-                // 3. Construir el enlace para Apps Script
                 const urlCompleta = `${URL_APPS_SCRIPT}?k=${encodeURIComponent(claveQR)}&ip=${ip}&ua=${userAgent}`;
 
-                // 4. Enviar el registro (No esperamos respuesta para que sea rápido y silencioso)
-                fetch(urlCompleta).catch(error => console.log("Registro en segundo plano"));
+                // Registrar en segundo plano
+                fetch(urlCompleta).catch(e => console.log("Registro silencioso"));
 
-                // 5. Esperar 1.5 segundos para que el usuario vea el logo y luego redirigir
+                // Redirigir después de 1.5 segundos
                 setTimeout(() => {
                     window.location.href = URL_DESTINO_FINAL;
-                }, 1500); // 1500 milisegundos = 1.5 segundos
+                }, 1500);
 
             } catch (error) {
-                // Si falla todo, igual lo mandamos a WhatsApp para que no se quede tirado
                 setTimeout(() => {
                     window.location.href = URL_DESTINO_FINAL;
                 }, 1500);
             }
         }
 
-        // Cuando la página carga, ejecutamos el sistema automáticamente
         document.addEventListener('DOMContentLoaded', ejecutarRegistroYRedirigir);
     </script>
 
