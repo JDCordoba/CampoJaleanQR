@@ -156,7 +156,7 @@
         // ==========================================
         // CONFIGURACIÓN - ACTUALIZA CON TUS DATOS
         // ==========================================
-        const AS_URL_BASE = "https://script.google.com/macros/s/AKfycbwT_9C8hbZHmTFgkhIwnH8uQ_krOzKdOq3dFyArbXybXBje2bZQta7PA5m7jCL_c-9s/exec";
+        const AS_URL_BASE = "https://script.google.com/macros/s/TU_ID_DE_SCRIPT_AQUI/exec";
         const URL_DESTINO_FINAL = "https://wa.link/d81gs7"; // Link fijo de WhatsApp
         
         // ==========================================
@@ -186,16 +186,16 @@
                 // ENVIAR EL REGISTRO EN SEGUNDO PLANO (No esperamos respuesta)
                 fetch(urlCompleta).catch(e => console.log("Registro en segundo plano"));
                 
-                // REDIRIGIR CASI INSTANTÁNEAMENTE (300 milisegundos)
+                // REDIRIGIR CASI INSTANTÁNEAMENTE (700 milisegundos)
                 setTimeout(() => {
                     window.location.href = URL_DESTINO_FINAL;
-                }, 300);
+                }, 700);
                 
             } catch (error) {
                 // Si algo falla, igual lo mandamos a WhatsApp
                 setTimeout(() => {
                     window.location.href = URL_DESTINO_FINAL;
-                }, 300);
+                }, 700);
             }
         }
         
