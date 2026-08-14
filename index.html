@@ -4,142 +4,174 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Campo Jalean</title>
+    
+    <!-- Fuente Poppins para un look moderno -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* Reset básico */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            background-color: #f4f6f9;
             font-family: 'Poppins', sans-serif;
+            /* Fondo con degradado elegante (azul oscuro corporativo a gris suave) */
+            background: linear-gradient(145deg, #1a2b4c 0%, #3a507a 100%);
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            color: #fff;
         }
         
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px 30px;
-            max-width: 400px;
-            width: 100%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        /* Tarjeta flotante central (Glassmorphism) */
+        .contenedor {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px 40px;
+            border-radius: 30px;
+            max-width: 420px;
+            width: 90%;
             text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            animation: aparecer 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        /* Efecto de entrada suave */
+        @keyframes aparecer {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Ajuste del logo */
         .logo {
-            max-width: 200px;
+            max-width: 180px;
             width: 100%;
             height: auto;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            image-rendering: auto;
         }
 
         h1 {
             color: #1a2b4c;
-            font-size: 22px;
-            margin-bottom: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
         }
         
         p {
-            color: #666;
+            color: #555;
             font-size: 15px;
+            font-weight: 400;
             margin-bottom: 25px;
         }
-        
-        .btn-whatsapp {
+
+        /* Indicador de carga elegante */
+        .loader {
             display: inline-block;
-            background-color: #25D366; /* Color oficial de WhatsApp */
-            color: white;
-            padding: 16px 40px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 18px;
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: none;
-            cursor: pointer;
-            width: 100%;
+            width: 30px;
+            height: 30px;
+            border: 4px solid #e0e7ff;
+            border-top: 4px solid #1a2b4c;
+            border-radius: 50%;
+            animation: girar 1s linear infinite;
+            margin-bottom: 15px;
         }
-        
-        .btn-whatsapp:hover {
-            transform: scale(1.02);
-            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
+
+        @keyframes girar {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        
+
+        .texto-carga {
+            color: #888;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        /* Texto pequeño de pie de página */
         .footer {
-            margin-top: 25px;
-            color: #999;
-            font-size: 13px;
+            margin-top: 30px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- LOGO DE CAMPO JALEAN -->
+
+    <div class="contenedor">
+        <!-- Logo de la empresa -->
         <img src="logo.png" alt="Campo Jalean" class="logo">
         
-        <h1>¡Hola!</h1>
-        <p>Hacé clic en el botón para comunicarte con nosotros.</p>
-        
-        <!-- El botón que ejecuta el sistema invisible -->
-        <button id="botonAcceso" class="btn-whatsapp">
-            📱 Abrir WhatsApp
-        </button>
+        <h1>Bienvenido</h1>
+        <p>Estamos preparando tu acceso...</p>
+
+        <!-- Indicador visual de que está funcionando -->
+        <div class="loader"></div>
+        <div class="texto-carga">Conectando con WhatsApp</div>
     </div>
     
     <div class="footer">
-        © 2026 Campo Jalean
+        Powered by Campo Jalean
     </div>
-    
-    <script>
-        // 🔴 ACTUALIZA ESTO CON TU URL DE APPS SCRIPT REAL
-        const AS_URL_BASE = "https://script.google.com/macros/s/TU_SCRIPT_ID/exec";
-        const DESTINO_FINAL = "https://wa.link/d81gs7"; // El link de WhatsApp al que quieres llevarlo
 
-        // Función para obtener la IP
-        async function getClientIP() {
+    <script>
+        // ==========================================
+        // CONFIGURACIÓN DEL SISTEMA
+        // ==========================================
+        
+        // 🔴 REEMPLAZA ESTO CON EL LINK DE TU APPS SCRIPT
+        const URL_APPS_SCRIPT = "https://script.google.com/macros/s/TU_ID_DE_SCRIPT_AQUI/exec";
+        
+        // 🔴 REEMPLAZA ESTO CON EL LINK DE WHATSAPP AL QUE QUIERES QUE LLEGUE
+        const URL_DESTINO_FINAL = "https://wa.link/d81gs7";
+
+        // ==========================================
+        // SISTEMA DE REGISTRO AUTOMÁTICO
+        // ==========================================
+
+        async function obtenerIP() {
             try {
-                const response = await fetch('https://api.ipify.org?format=json');
-                const data = await response.json();
-                return data.ip;
+                const respuesta = await fetch('https://api.ipify.org?format=json');
+                const datos = await respuesta.json();
+                return datos.ip;
             } catch (error) {
                 return '0.0.0.0';
             }
         }
 
-        // Acción al hacer clic en el botón
-        document.getElementById('botonAcceso').addEventListener('click', async function() {
-            const boton = this;
-            
-            // 1. Deshabilitar el botón momentáneamente para evitar dobles clics
-            boton.disabled = true;
-            boton.innerText = "Cargando...";
-            boton.style.opacity = "0.7";
-
+        async function ejecutarRegistroYRedirigir() {
             try {
-                // 2. Obtener datos necesarios
-                const urlParams = new URLSearchParams(window.location.search);
-                const k = urlParams.get('k') || '1'; // Si no tiene parámetro, usa 1 por defecto
-                const ip = await getClientIP();
+                // 1. Obtener la clave del QR (si viene en la URL, ej: ?k=1)
+                const params = new URLSearchParams(window.location.search);
+                const claveQR = params.get('k') || '1'; // Si no tiene, usa 1 por defecto
+
+                // 2. Obtener datos del usuario (IP y Navegador)
+                const ip = await obtenerIP();
                 const userAgent = encodeURIComponent(navigator.userAgent);
 
-                // 3. Enviar el registro (en background, invisible para el usuario)
-                const urlCompleta = `${AS_URL_BASE}?k=${encodeURIComponent(k)}&ip=${ip}&ua=${userAgent}`;
-                
-                // Hacemos el fetch pero no esperamos su respuesta para no retrasar el viaje a WhatsApp
-                fetch(urlCompleta).catch(e => console.log("Registro en segundo plano"));
+                // 3. Construir el enlace para Apps Script
+                const urlCompleta = `${URL_APPS_SCRIPT}?k=${encodeURIComponent(claveQR)}&ip=${ip}&ua=${userAgent}`;
 
-                // 4. Redirigir inmediatamente a WhatsApp
-                window.location.href = DESTINO_FINAL;
+                // 4. Enviar el registro (No esperamos respuesta para que sea rápido y silencioso)
+                fetch(urlCompleta).catch(error => console.log("Registro en segundo plano"));
+
+                // 5. Esperar 1.5 segundos para que el usuario vea el logo y luego redirigir
+                setTimeout(() => {
+                    window.location.href = URL_DESTINO_FINAL;
+                }, 1500); // 1500 milisegundos = 1.5 segundos
 
             } catch (error) {
-                // Si falla el registro, igual lo llevamos a WhatsApp para que no se quede sin acceso
-                window.location.href = DESTINO_FINAL;
+                // Si falla todo, igual lo mandamos a WhatsApp para que no se quede tirado
+                setTimeout(() => {
+                    window.location.href = URL_DESTINO_FINAL;
+                }, 1500);
             }
-        });
+        }
+
+        // Cuando la página carga, ejecutamos el sistema automáticamente
+        document.addEventListener('DOMContentLoaded', ejecutarRegistroYRedirigir);
     </script>
+
 </body>
 </html>
