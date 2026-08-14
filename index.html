@@ -110,14 +110,19 @@
         <img src="logo.png" alt="Campo Jalean" class="logo">
         
         <h1>Bienvenido</h1>
-        <p>Estamos preparando tu acceso...</p>
+        <div id="loader">
+            <div class="lds-ring">
+                <div></div><div></div><div></div><div></div>
+            </div>
+            <p class="status">⏳ Estamos preparando tu acceso...</p>
+        </div>
 
         <div class="loader"></div>
         <div class="texto-carga">Conectando con WhatsApp</div>
     </div>
     
     <div class="footer">
-        Powered by Campo Jalean
+        © 2026 Campo Jalean · Todos los derechos reservados
     </div>
 
     <script>
@@ -126,7 +131,7 @@
         // ==========================================
         
         // 🔴 TU LINK DE APPS SCRIPT
-        const URL_APPS_SCRIPT = "https://script.google.com/macros/s/TU_ID_DE_SCRIPT_AQUI/exec";
+        const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbwT_9C8hbZHmTFgkhIwnH8uQ_krOzKdOq3dFyArbXybXBje2bZQta7PA5m7jCL_c-9s/exec";
         
         // 🔴 TU LINK DE WHATSAPP
         const URL_DESTINO_FINAL = "https://wa.link/d81gs7";
