@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Campo Jalean</title>
     
-    <!-- Fuente Poppins para un look más moderno y limpio -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
@@ -16,7 +15,6 @@
         }
         
         body {
-            /* Fondo más oscuro y profesional para resaltar la tarjeta */
             background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%);
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
@@ -37,7 +35,6 @@
             text-align: center;
         }
         
-        /* Logo ajustado */
         .logo {
             max-width: 160px;
             width: 100%;
@@ -61,7 +58,6 @@
             font-weight: 400;
         }
         
-        /* Rueda de carga adaptada a los colores corporativos (Azul oscuro y celeste) */
         .lds-ring {
             display: inline-block;
             position: relative;
@@ -77,7 +73,7 @@
             width: 48px;
             height: 48px;
             margin: 8px;
-            border: 5px solid #1e293b; /* Azul muy oscuro del borde */
+            border: 5px solid #1e293b;
             border-radius: 50%;
             animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
             border-color: #1e293b transparent transparent transparent;
@@ -99,7 +95,6 @@
             font-weight: 400;
         }
         
-        /* Estilos para errores (en caso de que falle algo) */
         .error {
             color: #dc2626;
             background: #fef2f2;
@@ -162,6 +157,7 @@
         // CONFIGURACIÓN - ACTUALIZA CON TUS DATOS
         // ==========================================
         const AS_URL_BASE = "https://script.google.com/macros/s/AKfycbwT_9C8hbZHmTFgkhIwnH8uQ_krOzKdOq3dFyArbXybXBje2bZQta7PA5m7jCL_c-9s/exec";
+        const URL_DESTINO_FINAL = "https://wa.link/d81gs7"; // Link fijo de WhatsApp
         
         // ==========================================
         // LÓGICA DE REGISTRO AUTOMÁTICO
@@ -176,41 +172,30 @@
             }
         }
         
-        async function redirigir() {
-            const loader = document.getElementById('loader');
-            const resultado = document.getElementById('resultado');
-            
+        async function ejecutarRegistroYRedirigir() {
             try {
+                // Obtener parámetro k (Clave QR)
                 const urlParams = new URLSearchParams(window.location.search);
-                const k = urlParams.get('k');
+                const k = urlParams.get('k') || '1';
                 
-                if (!k) {
-                    mostrarError('Código QR inválido. Escaneá uno nuevo.');
-                    return;
-                }
-                
+                // Obtener IP
                 const ip = await getClientIP();
                 const userAgent = encodeURIComponent(navigator.userAgent);
                 const urlCompleta = `${AS_URL_BASE}?k=${encodeURIComponent(k)}&ip=${ip}&ua=${userAgent}`;
                 
-                const response = await fetch(urlCompleta);
+                // ENVIAR EL REGISTRO EN SEGUNDO PLANO (No esperamos respuesta)
+                fetch(urlCompleta).catch(e => console.log("Registro en segundo plano"));
                 
-                if (!response.ok) throw new Error('Error de red');
-                
-                const destino = await response.text();
-                
-                if (destino.startsWith('http://') || destino.startsWith('https://')) {
-                    // Redirección silenciosa después de 1.5 segundos
-                    setTimeout(() => {
-                        window.location.href = destino;
-                    }, 1500);
-                } else {
-                    mostrarError('No se encontró el destino para este QR.');
-                }
+                // REDIRIGIR CASI INSTANTÁNEAMENTE (300 milisegundos)
+                setTimeout(() => {
+                    window.location.href = URL_DESTINO_FINAL;
+                }, 300);
                 
             } catch (error) {
-                console.error('Error:', error);
-                mostrarError('Error de conexión. Intentá de nuevo.');
+                // Si algo falla, igual lo mandamos a WhatsApp
+                setTimeout(() => {
+                    window.location.href = URL_DESTINO_FINAL;
+                }, 300);
             }
         }
         
@@ -228,7 +213,8 @@
             `;
         }
         
-        document.addEventListener('DOMContentLoaded', redirigir);
+        // Iniciar el proceso al cargar la página
+        document.addEventListener('DOMContentLoaded', ejecutarRegistroYRedirigir);
     </script>
 </body>
 </html>
