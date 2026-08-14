@@ -3,18 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Campo Jalean - Registro</title>
-    <!-- Fuente moderna -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>Campo Jalean</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            background-color: #f4f6f9; 
+            background-color: #f4f6f9;
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
@@ -28,112 +23,50 @@
             background: white;
             border-radius: 20px;
             padding: 40px 30px;
-            max-width: 450px;
+            max-width: 400px;
             width: 100%;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             text-align: center;
         }
         
-        /* Ajustes del logo de Campo Jalean */
         .logo {
-            max-width: 180px;
+            max-width: 200px;
             width: 100%;
             height: auto;
-            margin-bottom: 20px;
-            image-rendering: -webkit-optimize-contrast; 
+            margin-bottom: 25px;
         }
 
         h1 {
             color: #1a2b4c;
-            margin-bottom: 5px;
             font-size: 22px;
+            margin-bottom: 10px;
         }
         
-        .subtitle {
+        p {
             color: #666;
+            font-size: 15px;
             margin-bottom: 25px;
-            font-size: 15px;
         }
         
-        /* Animación de carga */
-        .lds-ring {
+        .btn-whatsapp {
             display: inline-block;
-            position: relative;
-            width: 60px;
-            height: 60px;
-            margin: 15px auto;
-        }
-        
-        .lds-ring div {
-            box-sizing: border-box;
-            display: block;
-            position: absolute;
-            width: 48px;
-            height: 48px;
-            margin: 6px;
-            border: 5px solid #1982c4; /* Color celeste del logo */
-            border-radius: 50%;
-            animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-            border-color: #1982c4 transparent transparent transparent;
-        }
-        
-        .lds-ring div:nth-child(1) { animation-delay: -0.45s; }
-        .lds-ring div:nth-child(2) { animation-delay: -0.3s; }
-        .lds-ring div:nth-child(3) { animation-delay: -0.15s; }
-        
-        @keyframes lds-ring {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .status {
-            margin-top: 15px;
-            color: #666;
-            font-size: 14px;
-        }
-        
-        /* Estilos de mensajes de éxito/error */
-        .error {
-            color: #e74c3c;
-            background: #fde8e8;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-        }
-        
-        .success {
-            color: #27ae60;
-            background: #e8f8ed;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-        }
-        
-        .info {
-            color: #1982c4;
-            background: #e8f4fd;
-            padding: 10px;
-            border-radius: 10px;
-            margin-top: 10px;
-            font-size: 13px;
-        }
-        
-        .btn-reintentar {
-            padding: 10px 25px;
-            background: #1982c4;
+            background-color: #25D366; /* Color oficial de WhatsApp */
             color: white;
-            border: none;
+            padding: 16px 40px;
+            text-decoration: none;
             border-radius: 50px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
             font-weight: 600;
-            font-size: 15px;
-            margin-top: 15px;
-            transition: background 0.3s;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
         }
         
-        .btn-reintentar:hover {
-            background: #136a9e;
+        .btn-whatsapp:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
         }
         
         .footer {
@@ -148,21 +81,13 @@
         <!-- LOGO DE CAMPO JALEAN -->
         <img src="logo.png" alt="Campo Jalean" class="logo">
         
-        <h1>¡Bienvenido!</h1>
-        <p class="subtitle">Registrando tu ingreso...</p>
+        <h1>¡Hola!</h1>
+        <p>Hacé clic en el botón para comunicarte con nosotros.</p>
         
-        <div id="loader">
-            <div class="lds-ring">
-                <div></div><div></div><div></div><div></div>
-            </div>
-            <p class="status">⏳ Conectando con el sistema...</p>
-        </div>
-        
-        <div id="info-adicional" style="display: none;" class="info">
-            🔒 Escaneo registrado correctamente
-        </div>
-        
-        <div id="resultado" style="display: none;"></div>
+        <!-- El botón que ejecuta el sistema invisible -->
+        <button id="botonAcceso" class="btn-whatsapp">
+            📱 Abrir WhatsApp
+        </button>
     </div>
     
     <div class="footer">
@@ -170,99 +95,51 @@
     </div>
     
     <script>
-        // ✅ ACTUALIZA ESTO CON TU URL DE APPS SCRIPT
-        const AS_URL_BASE = "https://script.google.com/macros/s/AKfycbwT_9C8hbZHmTFgkhIwnH8uQ_krOzKdOq3dFyArbXybXBje2bZQta7PA5m7jCL_c-9s/exec";
-        
-        // Función para obtener la IP del usuario
+        // 🔴 ACTUALIZA ESTO CON TU URL DE APPS SCRIPT REAL
+        const AS_URL_BASE = "https://script.google.com/macros/s/TU_SCRIPT_ID/exec";
+        const DESTINO_FINAL = "https://wa.link/d81gs7"; // El link de WhatsApp al que quieres llevarlo
+
+        // Función para obtener la IP
         async function getClientIP() {
             try {
                 const response = await fetch('https://api.ipify.org?format=json');
                 const data = await response.json();
                 return data.ip;
             } catch (error) {
-                console.log('No se pudo obtener IP:', error);
                 return '0.0.0.0';
             }
         }
-        
-        // Función principal
-        async function procesarRegistro() {
-            const loader = document.getElementById('loader');
-            const resultado = document.getElementById('resultado');
-            const infoAdicional = document.getElementById('info-adicional');
+
+        // Acción al hacer clic en el botón
+        document.getElementById('botonAcceso').addEventListener('click', async function() {
+            const boton = this;
             
+            // 1. Deshabilitar el botón momentáneamente para evitar dobles clics
+            boton.disabled = true;
+            boton.innerText = "Cargando...";
+            boton.style.opacity = "0.7";
+
             try {
-                // Obtener parámetro k de la URL
+                // 2. Obtener datos necesarios
                 const urlParams = new URLSearchParams(window.location.search);
-                const k = urlParams.get('k');
-                
-                if (!k) {
-                    mostrarError('Código QR inválido. Por favor, escanea un QR válido.');
-                    return;
-                }
-                
-                // Obtener IP del usuario
+                const k = urlParams.get('k') || '1'; // Si no tiene parámetro, usa 1 por defecto
                 const ip = await getClientIP();
-                
-                // Construir URL con parámetros
                 const userAgent = encodeURIComponent(navigator.userAgent);
+
+                // 3. Enviar el registro (en background, invisible para el usuario)
                 const urlCompleta = `${AS_URL_BASE}?k=${encodeURIComponent(k)}&ip=${ip}&ua=${userAgent}`;
                 
-                // Llamar a Apps Script
-                const response = await fetch(urlCompleta);
-                
-                if (!response.ok) {
-                    throw new Error('Error de red: ' + response.status);
-                }
-                
-                const destino = await response.text();
-                
-                // Validar que sea una URL
-                if (destino.startsWith('http://') || destino.startsWith('https://')) {
-                    // Mostrar mensaje de éxito
-                    loader.innerHTML = `
-                        <div class="success">✅ ¡Escaneo registrado exitosamente!</div>
-                        <p class="status" style="margin-top:10px;">Redirigiendo al destino en 2 segundos...</p>
-                    `;
-                    
-                    // Mostrar información adicional
-                    infoAdicional.style.display = 'block';
-                    infoAdicional.innerHTML = `
-                        📊 Registro completado<br>
-                        🔑 QR: ${k}
-                    `;
-                    
-                    setTimeout(() => {
-                        window.location.href = destino;
-                    }, 2000);
-                    
-                } else {
-                    mostrarError('No se encontró el destino para este código QR.');
-                }
-                
+                // Hacemos el fetch pero no esperamos su respuesta para no retrasar el viaje a WhatsApp
+                fetch(urlCompleta).catch(e => console.log("Registro en segundo plano"));
+
+                // 4. Redirigir inmediatamente a WhatsApp
+                window.location.href = DESTINO_FINAL;
+
             } catch (error) {
-                console.error('Error:', error);
-                mostrarError('Error de conexión. Por favor, intenta de nuevo.');
+                // Si falla el registro, igual lo llevamos a WhatsApp para que no se quede sin acceso
+                window.location.href = DESTINO_FINAL;
             }
-        }
-        
-        function mostrarError(mensaje) {
-            const loader = document.getElementById('loader');
-            const resultado = document.getElementById('resultado');
-            loader.style.display = 'none';
-            resultado.style.display = 'block';
-            resultado.innerHTML = `
-                <div class="error">❌ ${mensaje}</div>
-                <br>
-                <button onclick="window.location.reload()" class="btn-reintentar">
-                    🔄 Reintentar
-                </button>
-            `;
-        }
-        
-        // Iniciar el proceso cuando la página cargue
-        document.addEventListener('DOMContentLoaded', procesarRegistro);
+        });
     </script>
-    
 </body>
 </html>
